@@ -1,2 +1,5 @@
 build/*
 *.pdf
+.DS_Store
+.AppleDouble
+.LSOverride
