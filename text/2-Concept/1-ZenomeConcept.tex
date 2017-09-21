@@ -1,0 +1,124 @@
+\section{Zenome Project}
+
+\subsection{Philosophical View} %-----------------------------------------------
+Public awareness of genomic medicine remains quite low in the developed and even worse in developing countries. It means that people, in general, have little understanding of possible benefits of genomics as well as possible dangers associated with it. In many countries it resulted in developing overly-complex institutional procedures to protect genetic infromation from possible misuse that, on the other hand, hinders scientific progress.
+
+The Zenome Platform is going to raise awareness on genomic medicine, so users can make conscious decisions regarding their data. To ensure that, the Zenome Platform is based on the following fundamental principles:
+
+\begin{description}
+  \item [Individual ownership of personal genomic information]
+    Each participant has all rights for personal genomic data.
+  \item [Freedom of choice]
+    Each participant decides how individual genetic information should be used. One may decide whether or not to participate in scientific/clinical research.
+  \item [The right to share]
+    The participant may grant access to genetic information to a third party in a way restricting data copying.
+  \item [Privacy]
+    Private data encryption makes it impossible to access individual genetic information without explicit user's permission.
+  \item [Distributed data storage]
+    Distributed database architecture provides high availability and fault tolerance through replication and scale out ability.
+  \item [Distributed data processing]
+    Data is processed on many network nodes at the same time. Any user can become a node by providing disk space and CPU time to the network.
+  \item [Scalability]
+    The platform architecture enables great scalability and flexibility of the system.
+\end{description}
+
+
+\subsection{The Zenome Platform Ecosystem} %------------------------------------
+On the Zenome platform user\footnote{User in a broader sense, i.e. a person or software that runs on behalf of that person.} is engaged in many types of different interactions throughout the system. These interactions take place at different system levels, don't interfere with each other and involve different patterns of interactions. Thus, they should be represented as distinct entities that have different roles.
+
+The following roles are available on the Zenome platform:
+\begin{description} \label{Roles}
+  \item[(Calculating / Storing) Node]
+    that provides storage and CPU power for a reward.
+  \item[Person]
+    who has uploaded individual genetic data to the platform and possibly uses genetic services.
+  \item[Analyst]
+    who is interested in analyzing genetic information on the platform. May represent: a data scientist, a scientific organization and so on.
+  \item[Service Provider]
+    that implements a user-space genetic service (possibly paid) on the platform. Basically, it's an organization that uses genetic data as a part of its business.
+\end{description}
+
+\def\ServiceProvider{\hyperref[Roles]{\textbf{Service Provider}} }
+\def\Analyst{\hyperref[Roles]{\textbf{Analyst}} }
+\def\Node{\hyperref[Roles]{\textbf{Node}} }
+\def\Person{\hyperref[Roles]{\textbf{Person}} }
+
+\begin{note}[IN SHORT] \bf
+  Each user is engaged in a number of interaction of different kind, taking on different roles. Some of them, such as \ServiceProvider and \Analyst,  require special knowledges, but \Node and \Person don't.
+\end{note}
+
+Every role will be discussed in details later.
+
+\subsection{The System Architecture's Overview} %-------------------------------
+The Zenome platform is a distributed application that consists of 3 major layers.
+
+\paragraph*{Network (and Data Access) Layer}: provides a level of abstraction that encapsulates network interaction and provides interface to a distributed environment to upper layers.
+
+\begin{table}[H] \centering
+  \begin{tabular}{l|c|c} &  Blockchain & DHT Kademlia \\ \hline
+   Data Storage Cost     &     High    &     Low      \\
+   Data Immutability     &     True    &     False    \\
+   Performance           &     Low     &     High     \\
+   Deterministic Result  &     True    &     False    \\
+  \end{tabular}
+\end{table}
+
+This layer consists of two distributed systems of a completely different nature:
+\begin{description}
+  \item [Distributed Ledger] (based on blockchain) that records transactions between participants in a verifiable and permanent way. To access blockchain node's software runs embedded Ethereum client.
+  \item [Distributed Hash Table Network] (based on Kademlia protocol) that combines physical nodes into an overlay network and enables message passing between nodes and distributed data storage.
+\end{description}
+
+
+\begin{note}[ROLE]
+  (Calculating / Storing) \Node operates at the Network layer.
+\end{note}
+
+
+\paragraph*{Middleware} contains account management, consistent interface to security features of the underlying layer and high-level APIs for software that runs on Application level.
+
+\begin{note}[ROLE]
+  \textbf{Service Provider} operates upon Middleware. So-called External Services Platform API enables third-parties to start genetic services on the platform.
+\end{note}
+
+\paragraph*{Application Layer} Zenome application features an advanced end-user interface that translates user actions to Middleware in very consistent way. Interface is extandable by design so that genetic services can run natively on the software-stack.
+
+
+\subsection{Genetic services market} %------------------------------------------
+The market of genetic services is currently developing in the following areas:
+\begin{enumerate}
+  \item \textbf{Research and technology adoption} into the market.
+  \item Providing \textbf{genomic diagnostic services}.
+  \item \textbf{Government certification} of genetic technologies.
+  \item \textbf{Developing a legal framework}. In particular, legislative measures to safeguard genetic information;
+\end{enumerate}
+
+\begin{note}
+  The structure of the market is quite complex. Some players are, in fact, developing in several directions to find their place in the market in the face of rapidly increasing consumer needs.
+\end{note}
+
+
+The following players are represented on the genetic services market:
+
+\begin{description}
+  \item [Scientific corporations] are working on the discovery and adoption of new technologies on the market. These include:
+
+    \begin{itemize}
+      \item Pharmaceutical corporations, biotechnological and diagnostic companies, such as Pfizer and Myriad
+      \item Companies that develop and sell all necessary chemical supplementary reagents (such as Life Technologies).
+    \end{itemize}
+
+  \item [IT-bioinformatic companies] are engaged in invention and development of the methods of computational data processing. Players in this sector are still struggling to deal with the types and volumes of the data obtained.
+
+  \item [Scientific and medical centers] are playing a leading role in the provision and development of genetic diagnostics services.
+
+  \item [Commercial laboratories] are providing a fast, efficient and usually relatively cheap genetic diagnostic services. They are possessing large financial and resource abilities.
+
+  \item [Direct-to-Consumer genetic diagnostic companies] increase the population's interest in genetic diagnostics. Currently this segment is very small, but in future, it can grow into one of the leading market part and can be adopted into clinical practice.
+
+\end{description}
+
+\begin{table}[H] \centering
+  \caption{Comparison with Similar Products on the Market}
+  \input{tables/table-compare.tex}
+\end{table}

@@ -1,0 +1,38 @@
+\section{Main distributed subsystems of the platform}
+The platform has the following organization levels:
+\begin{itemize}
+  \item Basic System Layer (Critical Infrastructure)
+  \item Data Storage and Processing Level
+  \item High-Level Interactions
+\end{itemize}
+
+The following subsystems are included within the platform:
+\begin{enumerate}
+  \item Basic System Layer
+  \begin{description}
+    \item[Low-Level Interoperation]
+      Basic subsystem of message exchange between network nodes.
+      It also enables creation of distributed hash tables.
+    \item[Authorizations]
+      The infrastructure of accounts and access management to private information.
+  \end{description}
+
+  \item Data Storage and Processing Level
+  \begin{description}
+    \item[Storages]
+      Abstraction level for access to distributed file system.
+    \item[Processing]
+      Infrastructure for а distributed calculations.
+  \end{description}
+
+  \item High-Level Interactions
+  \begin{description}
+    \item[Secure queries]
+      A subsystem that enables formation of the offers for buying genomic data which could be shown to appropriate users only.
+    \item[Open data operations]
+      Provides tools for operation with open (not private) data.
+    \item[External Services Platform]
+      Provides API for connecting external centrally managed services to the platform. Arranges secure data transfer using conventional web protocols.
+  \end{description}
+
+\end{enumerate}

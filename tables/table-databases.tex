@@ -1,0 +1,63 @@
+\def\Field #1 => #2;{ \hfill \small #1: & \small #2 \\[-5pt] }
+\def\Line#1=> #2;{ & \small #2 \\[-5pt] }
+
+
+\def\Record #1 at #2 [#3]{
+\hline  \multicolumn{2}{|c|}{ #1 \hfill \url{#2}  }
+\\ \hline  #3 \\[-3mm]
+}
+
+\begin{tabular}{p{2cm}p{15cm}}
+
+\Record GenBank at http://exac.broadinstitute.org [
+\Field Owner    => NCBI-NIH, USA;
+\Field Product  => Genome sequences database;
+\Field Stored   => More than 199,341,377 different genome sequences;
+]
+
+\Record ExaC at www.ncbi.nlm.nih.gov/genbank [
+\Field Owner   => Broad Institute of MIT and Harvard, USA,
+                 ODC Open Database License (ODbL);
+\Field Product => Exome Aggregation Consortium;
+\Field Stored  => 60,706 human exome samples/sequences;
+]
+
+\Record UniprotKB at www.ebi.ac.uk/uniprot/ [
+\Field Owner   => EMBL-EBI, SIB, PIR, UK, Switzerland, USA ;
+\Field Product => Open Knowledge Base. Manual expert curation. Proteins and genes sequences.;
+\Field Stored  => More than 555,100 manually reviewed and annotated record ;
+]
+
+\Record ClinVar at https://www.ncbi.nlm.nih.gov/clinvar/ [
+\Field Owner   => NCBI-NIH, USA ;
+\Field Product => freely available archive for interpretations of
+ clinical significance of genomic variants for reported condition ;
+\Field Stored  => >158 000 submitted interpretations, representing >125 000 variants. ;
+]
+
+
+\Record HGMD at http://www.hgmd.cf.ac.uk/ac/index.php [
+\Field Owner   => QiaGen ;
+\Field Product => Commercial database ;
+\Field Stored  => 208,368 human mutation records with annotations ;
+]
+
+\Record SNPedia at https://www.snpedia.com/index.php/SNPedia [
+\Field Owner   => Open database ;
+\Field Product => SNPedia is a wiki investigating human genetics ;
+\Field Stored  => 107,073 SNPs and linked records ;
+]
+
+\Record 1000 Genomes Project at www.1000genomes.org [
+\Field Owner    => EMBL-EBI, Wellcome Trust ;
+\Field Goal     => find most genetic variants with frequencies of at least 1\%;
+\Field Stored   => More than 2,504 Genome samples/sequences ;
+]
+
+\Record 100000 Genomes Project at http://www.genomicsengland.co.uk/ [
+\Field Owner   => NHS, Government of UK ;
+\Field Product => UK government database containing a sequence of 100,000 genomes ;
+\Field Stored  => 32,642 Whole genome sequences ;
+]
+
+\end{tabular}

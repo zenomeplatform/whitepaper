@@ -1,0 +1,83 @@
+\section{Roles in The Zenome Platform}
+\subsection{From Resource Nodes’ Perspectives}
+
+The system from a perspective of a computational node
+
+\textbf{Node} --- a participant providing the resources of his or her computer (storage and CPU time) for the purpose of distributed storage and processing of genetic data for a reward in ZNA tokens.
+
+To become a computational node, user runs Zenome software on his or her computer and activates \verb|Node| role using graphical user interface. The software must run continuously in the background.
+
+\begin{note}
+  A command line version of the Zenome software is also provided that can be used specifically to start computational Node.
+\end{note}
+
+The policy of system resources’ allocation and task management can be flexibly configured by the node owner:
+\begin{itemize}
+  \item maximal storage size that software is allowed to use
+
+  \item a policy of computational resource usage:
+  \begin{description}
+    \item [Fixed CPU/GPU usage] number of cores and maximal loading (in percent) per each core.
+    \item [Dynamic CPU/GPU usage] resources are allocated to the software in such a way that they do not interfere with user applications.
+  \end{description}
+
+  \item Choose computational process (by id) that will have the highest execution priority.
+
+  \item Shut down the node temporarily: request the network to transfer the data not available elsewhere to other nodes. Wait until data transfer is completed and disconnect.
+
+  \item Shut down the node completely: request the network to transfer all data to other nodes, wait until data transfer is completed and delete data.
+\end{itemize}
+
+
+\subsection{Person/User}
+\textbf{Person} --- an individual willing to provide his or her genetic information to the Zenome system in order to make profit from selling his or her personal data or to use genetics-based services available on the platform.
+
+A user installs Zenome software to work with personal genetic information.
+
+Using the graphical user interface, user is able to:
+\begin{itemize}
+\item Create personal account
+\item Manage tokens: recieve, transfer, use, pay for data storage, spend on paid genetic services.
+\item Upload genetic data (file format is mostly detected automatically).
+\item Manage personal data: provide personal data, fill in a questionnaire, view a list of the most popular questionnaires.
+\item Work with targeted offers using safe suggestions subsystem.
+\item Use genetic services and configure privacy level for each service. individually.
+\end{itemize}
+
+When loading genetics data, the level of privacy can be chosen among:
+\begin{description}
+\item [Full Privacy]
+  In this case data are stored in encrypted form, and full price is charged for storing such data.
+
+\item [Standard Privacy]
+  Genetic data are stored as fragments making it impossible to identify the user. Each fragment is stored in the system overtly. Information regarding matching fragments to user IDs is private. In this case, the storage is cheaper due to subsidies.
+
+\item [The Public Access]
+  Data is stored overtly. Storage is free due to subsidies.
+\end{description}
+
+\begin{note}
+  Attention! Although there are no technical restrictions against increasing the level of privacy, only future data is affected. The data once made public would never be private again. Consider this when you upload the data first time.
+\end{note}
+
+
+
+\subsection{Data Consumer}
+
+\textbf{Data Consumer}~--- a scientist, commercial company, scientific organization or other platform participant, who is interested in genetic data analysis using platform capacities. Data consumer is able to make requests to the users and set a refund that will be paid to the responding users
+
+\begin{note}
+Note: there are some restrictions for queries that are designed to prevent system user de-anonymization and other platform misuse. These restrictions also depend on consumer ranking in the system.
+\end{note}
+
+
+\subsection{Service Provider}
+
+\textbf{Service Provider} --- an organization that uses genetic data in its business and thereby implements a user service on the platform.
+\begin{note}\it
+User can choose himself or herself which data he wants to share with the service provider. User will be notified if the requested data could be used to identify him.
+\end{note}
+
+\begin{note}
+For example, service provider cannot see more than 70\% of mutation list in clear form using direct query or to get the information matching raw data (like fastq files) with user questionnaire
+\end{note}

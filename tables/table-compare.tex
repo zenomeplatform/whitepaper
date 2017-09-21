@@ -1,0 +1,25 @@
+\begin{tikzpicture}[T/.style={x=1em,y=1em,xshift=-0.5em}]
+  \def\y{\fill[T] (0,.35)--(.25,0)--(1,.7)-- (.25,.15) -- cycle;}
+  \def\x{\fill[T] (0.5,0) (0.2,.2) rectangle (0.7,.28);}
+\matrix [matrix of nodes,
+    column 1/.style={anchor=east, yshift=0.2em},
+    column sep={2.25em,between origins},
+    row 1/.style={every node/.style={rotate=90, align=left, anchor=west}}, row sep={0.7cm,between origins} ]{
+& We & GeneCoin & Encrypgen & 23andMe
+     & \node {Pathway \\[-4pt] Genomics};
+     & \node {Snpedia \\[-4pt](Promethease)};
+     & \node {Human longevity }; \\
+  Decentralized                         & \y & \y & \y & \x & \x & \x & \x \\
+  Suitable for non-human organisms      & \y & \y & \y & \x & \x & \x & \x \\
+  Customer is the owner of his data     & \y & \y & \y & \x & \x & \y & \x \\
+  Possibility to load your own data     & \y & \y & \y & \x & \x & \y & \x \\
+  Opened nonprivate data                & \y & \y & \x & \x & \x & \x & \y \\
+  Performs its own data analysis        & \y & \y & \x & \y & \y & \y & \y \\
+  Provides a report for customers       & \y & \x & \x & \y & \y & \y & \x \\
+  Uses AI and Machine Learning          & \y & \x & \x & \x & \x & \x & \y \\
+  Sharing without transmitting huge data& \y & \x & \y & \x & \x & \x & \x \\
+  Earn using your data                  & \y & \x & \x & \x & \x & \x & \x \\
+  Opened for scientists                 & \y & \x & \x & \x & \x & \y & \x \\
+  Is a platform for other tools         & \y & \x & \y & \x & \x & \x & \x \\
+};
+\end{tikzpicture}

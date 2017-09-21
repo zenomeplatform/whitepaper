@@ -1,0 +1,60 @@
+﻿\section{Distributed objects}
+\subsection{A concept of distributed subsystem}
+
+\textbf{(Distributed) Subsystem} --- a collection of some fraction of the system (platform) elements and processes that can be represented from the object-oriented perspective as an entity that has a distinct identity and exhibits a well-defined externally visible behavior.
+
+To give a detailed characteristic of a subsystem, its following aspects should be described:
+\begin{enumerate}
+\item \textbf{Structure}: the elements and processes forming the system.
+\item \textbf{External Behavior}: interaction of a subsystem as a whole with other participants. In particular: \begin{itemize}
+    \item \textbf{Interfaces}: a collection of possible queries to a subsystem as a whole.
+    \item \textbf{Actions}: actions taken by a subsystem concerning the other system participants.
+  \end{itemize}
+\item \textbf{Internal State}: the aggregate internal state of a subsystem.
+\end{enumerate}
+
+Subsystem may be represented as \textbf{quasiobject}, with which other participants are able to interact.
+
+\begin{note}
+  The prefix <<quasi->> means that real interaction takes place with subsystem elements, which, in turn, have complex interactions with each other as a part of this real interaction, so that all these stuff could be considered as interaction with some aggregate object.
+\end{note}
+
+\begin{note} \it
+Below we will drop distinctions between a subsystem and its representation as a quasiobject.
+\end{note}
+
+Interactions with a subsystem can be represented as a sequence of relatively small number of basic operations:
+\begin{itemize}
+  \item Subsystem interface, that is, the actions of other participants concerning subsystem.
+  \item The actions concerning other platform participants.
+  \item Internal processes that change the internal state of a system.
+\end{itemize}
+
+%\subsection{Formal description of a distributed subsystem}
+%Thus, a subsystem description can be represented as a table that contains:
+%\begin{itemize}[nosep]
+%\item Internal state specification (\verb|V|)
+%\item List of all interfaces (\verb|I|), actions (\verb|A|) and events (\verb|E|s)
+%\end{itemize}
+
+%\begin{tabular}{|p{0.5cm}|p{3cm}|p{2cm}|p{5cm}|} \hline
+%   \multicolumn{2}{|r|}{}  &
+%   \multicolumn{2}{r|}{Object: \texttt{[Subsystem's Name] } }          \\ \hline
+%           & \multicolumn{2}{|l|}{Field}      & Description            \\ \hline
+%  \verb|V| & \verb|data1|    & \verb|type1|   & Some data              \\ \hline
+%  \verb|V| & \verb|data2|    & \verb|type2|   & A Variable             \\ \hline
+%  \verb|I| & \verb|request1| & \verb|caller1| & A method               \\ \hline
+%  \verb|I| & \verb|request2| & \verb|caller2| & Another method         \\ \hline
+%  \verb|A| & \verb|action1|  & \verb|object1| & object1 can be called  \\ \hline
+%  \verb|E| & \multicolumn{2}{|l|}{\texttt{event1}}  & Something happened \\ \hline
+%\end{tabular}
+%\vskip1mm
+%\noindent Then description of each interface and each action should be given.
+
+
+\subsection{Internal processes}
+\begin{description}
+  \item [Internal processes] in a broad sense --- represent a collection of all internal processes of each subsystem element and interactions between these elements.
+
+  \item [Internal processes] (in a narrow sense) --- represent processes within subsystem as a whole which change its internal state. Full description of internal processes contains all subsystem behavior excluding the issues of its specific implementation.
+\end{description}

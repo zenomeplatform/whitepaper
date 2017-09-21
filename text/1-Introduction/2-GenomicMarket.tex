@@ -1,0 +1,91 @@
+\section{Genomic market overview}
+\begin{overview}
+  In this section, a brief analysis of the genomic technologies market is given. Examples of the most popular genomic products and companies providing various genomic services are described.
+\end{overview}
+
+\subsection{Genomic market growth dynamics}
+The market for genomic technologies is growing rapidly and is highly promising. Currently, the total market volume is approximately \$25 billion with nearly tenfold growth, from \$5.9 billion in 2010 to \$60 billion in 2020 (predicted).
+
+
+\begin{figure}[H] \centering
+\begin{tikzpicture}
+\pgfplotstableread{
+yy     market
+2010   5.9
+2012   9.7
+2014   16.85
+2016   28.47
+2018   48.1
+2020   62.5
+} \mytable
+
+\begin{axis}[
+  width=15cm, height=7cm,
+  ymax=70,   ymin=0,
+  xmax=2023, xmin=2009,
+  compat=newest, axis lines= middle,
+  xtick={2010,2012,2014,2016,2018,2020},
+	x tick label style={/pgf/number format/set thousands separator={}},
+	ytick={0, 5.9, 62.5},
+  ybar,
+	bar width=25pt,
+  ylabel style={align=left},
+  ylabel={Market share, \\Billions of USD},
+  xlabel=Year,
+]
+\addplot[gray] table [x=yy,y=market] {\mytable};
+\end{axis}
+\end{tikzpicture}
+\caption{Genomic market growth dynamics for the period 2010-2024.}
+\end{figure}
+
+
+
+\subsection{Product areas}
+As a key component of Industry 4.0, genomics has a broad range of potential applications in almost all economic fields.
+Main product areas of present genomics market:
+
+\begin{itemize}
+
+\item \textbf{NIPT (Non-Invasive Prenatal Testing)} \newline
+\begin{tabular}{r|p{11cm}} \hline
+    \small\textbf{Description:}    & \small Based on DNA of fetal origin circulating in the maternal blood. Testing can potentially identify fetal aneuploidy\cite{Fan21102008} and gender of a fetus as early as six weeks into a pregnancy.\\
+    \small\textbf{Market Share:}   & \small 4 billions USD  \\
+    \small\textbf{Market Leaders:} & \small
+     \href{https://www.illumina.com/}{Illumina},
+     \href{http://www.natera.com/}{Natera},
+     \href{http://www.ariosadx.com/}{Ariosa},
+     \href{https://www.sequenom.com/}{Sequenom}.\\
+\end{tabular}
+
+
+  \item \textbf{PGS (Preimplantation genetic screening)} \newline
+  \begin{tabular}{r|p{11cm}} \hline
+    \small\textbf{Description:}    & \small Based on DNA-microarray or NGS-sequencing genetic profiling of embryos prior to implantation during IVF (in vitro fertilisation) procedure \\
+    \small\textbf{Market Share:}   & \small 336.4M USD \\
+    \small\textbf{Market Leaders:} & \small Illumina, Agilent Technologies
+  \end{tabular}
+
+  \item \textbf{DTC (Direct-to-consumer) genetic testing, SNP-genotyping} \newline
+  \begin{tabular}{r|p{11cm}} \hline
+    \small\textbf{Description:}    & \small Genetic test based on DNA-microarray SNP-genotyping for getting some following recommendations: ancestry, nutrition needs, carrier status, optimal exercise.
+ \\
+    \small\textbf{Market Share:}   & \small 2 Billions USD \\
+    \small\textbf{Market Leaders:} & \small
+      \href{https://www.ancestry.com/dna/}{AncestryDNA},
+      \href{https://www.23andme.com/}{23andMe},
+      \href{https://www.dnafit.com/}{DNAfit},
+      \href{https://www.decode.com/}{deCode genetics}.
+  \end{tabular}
+
+  \item \textbf{Diagnostics company (Including oncogenomics)} \newline
+  \begin{tabular}{r|p{11cm}} \hline
+    \small\textbf{Description:}    & \small Different types of diagnostic procedures, genetics included. Sequencing of genes panels, Exomes, Whole-genomes, Liquid biopsy \\
+    \small\textbf{Market Share:}   & \small 16 Billions USD  \\
+    \small\textbf{Market Leaders:} & \small
+      \href{https://www.pathway.com/}{Pathway Genomics},
+      \href{http://www.humanlongevity.com/}{Human Longevity, Inc},
+      \href{https://www.labcorp.com/}{Laboratory Corporation of America},
+      \href{http://www.questdiagnostics.com/home.html}{Quest Diagnostics}.
+  \end{tabular}
+\end{itemize}

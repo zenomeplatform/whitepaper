@@ -1,0 +1,111 @@
+﻿\section{Distributed data storage network}
+
+\subsection{The principles of distributed network operation}
+The distributed network based on DHT Kademlia protocol is used for storing data of arbitrary types. The nodes of this network are represented by registered resource providers, which earn a reward for storing the data and performing the computations needed. The participant who has uploaded the data pays a reward for data storing, but, in a number of practically important cases these charges are partly or fully subsidized by the system. For example, there exists a mechanism of subsidizing the storing of scientifically valuable data.
+
+%](ConceptualLayer/...).
+
+The storage unit is represented by an arbitrary data block and unique key by which it can be accessed.
+
+\begin{note}
+ The size of a data block is restricted to prevent misuses.
+\end{note}
+
+\textbf{External services support.} A possibility of integration with Storj and FileCoin nodes, as well as with centrally managed storages, will also be implemented.
+
+
+
+% \subsection{Fragment descriptor in a distributed file system}
+% Each fragment corresponds to the record of the following form (fragment descriptor):
+%
+% | Field | Type
+% | --------------- | ------------ | ----------------------------- |
+% |||  RecordID: **DataRecord**     |
+% | `DataType`      |  *`type`*      | A type of the stored data     |
+% | `Key`           |  *`key`*       | Key                           |
+% | `CheckSum`      |  *`checksum`*  | Checksum                      |
+% | `PublicData`    |  *`Container`* | Public metainformation        |
+% | `PrivateData`   |  *`Encrypted`* | Encrypted metainformation     |
+%
+% + `DataType` field defines the type of the stored data and influences the minimal number of nodes to be used for storing of this block.
+%
+% + `PublicData` and `PrivateData` fields may contain arbitrary information depending on the particular data stored.
+%
+% + The key to be used for encryption of `PrivateData` field contents also depends on the particular data and corresponding security protocol from Security Layer.
+
+%
+%
+% \subsection{Interaction with storage subsystem (draft)}
+% Storage subsystem provides the following interaction methods:
+% + Put(DataRecord)
+% +
+%
+% **Blockchain role in data storage.** The blockchain is used to manage the process of distributed storage and to enable interactions with other platform participants.
+%
+% For every block stored a smart contract containing a record of `DataRecord` type is introduced into the blockchain.
+%
+%
+
+
+\subsection{Data storage reliability assurance}
+To assure the reliability of data storage, in view of the fact that the nodes can freely connect to and disconnect from the network, the data are stored independently on several nodes simultaneously. The type of data stored determines the number of nodes on which the information duplicates.
+
+
+\begin{table}[H] \centering
+  \caption{Exemplary parameters of genetic data.}
+  \begin{tabular}{l|p{5cm}|p{5cm}}
+              &  Raw       &  Processed  \\ \hline
+     Format   & fastq/bam  & gvcf/vcf + bed/23me(txt) \\
+     Size     & 50Gb       & 2Gb \\
+     Nodes    & $\ge 3$    & $\ge 5$ \\ \hline
+  \end{tabular}
+\end{table}
+
+
+When the number of the nodes changes, the data stored are redistributed to satisfy the requirement for the minimal number of the nodes.
+
+Since everyone who wants to can become a node in the distributed network, it is not safe to believe that the node really stores the file when it claims so. Thus, the check of data retrievability is periodically performed according to the corresponding protocol from Security Layer.
+The data on the checking results is introduced to the blockchain and can be the reason for issuing a reward or changing node rating.
+
+\subsection{Data storage privacy assurance}
+The privacy of data storage in such a distributed network becomes possible due to application of asymmetrical cryptography. The actual method of encryption is determined by the corresponding security protocol.
+
+\begin{note}
+It should be noted that subsidizing mechanism could not be applied for storing the encrypted data.
+\end{note}
+
+
+
+\subsection{Specific features of storing genomic information}
+The belonging of some genome fragment to the particular individual can be unambiguously identified if the fragment is rather large. This is why the genomes in the distributed network are stored as rather short fragments.
+
+Genome fragmentation is always performed based on the reference genome. For each reference genome (for example, another version of human reference genome or a genome of the organism of different species) a fragmentation is chosen only once, and each fragment is assigned with identifier that is unique for this reference genome.
+%
+% The identifier of a reference genome represents a tuple:
+%
+%     RefId = ( SpeciesId, Version )
+%
+% The files of a reference genome and the corresponding fragmentation are stored in the distributed peer-to-peer network. The data can be retrieved by the key of the following form:
+%
+%     Reference/[SpeciesId]/[Version]/data
+%     Reference/[SpeciesId]/[Version]/fragments_list
+%     Reference/[SpeciesId]/[Version]/fragment/{FragmentId}
+%
+% The information regarding which fragments constitute a user’s genome is private. It is stored as the following data structure:
+%
+% |             FullGenome                            |
+% | --------------- | ------------------------------- |
+% | `RefId`         | Reference genome ID             |
+% | `Fragments[]`   | An array of fragments’ addresses|
+%
+% This structure is encrypted when necessary.
+%
+% In the researches it is often enough to know that two fragments belong to the genome of the same individual. In order to transfer such information the following structure exists:
+%
+% |             PartGenome                            |
+% | --------------- | ------------------------------- |
+% | `RefId`         | Reference genome ID             |
+% | `FragmentsId[]` | An array of fragments’ IDs      |
+% | `Fragments[]`   | An array of fragments’ addresses|
+%
+% The lengths of the arrays FragmentsId and Fragments are equal. The data from this structure could be understood as follows: all fragments from the array Fragments belong to the same individual, and the fragment Fragments[i] have a unique identifier FragmentsId[i].

@@ -1,0 +1,112 @@
+\documentclass[14pt]{extreport}
+\usepackage{expl3,xargs,luacode,comment,graphicx,polyglossia}
+\usepackage[a4paper, margin=1.5cm, bottom=2cm]{geometry}
+\usepackage{titlesec,amsmath,enumitem,subcaption,newfloat}
+\usepackage[unicode,hidelinks]{hyperref}
+\usepackage[newfloat,outputdir=build]{minted}
+\usepackage{tikz, etoc}
+\usetikzlibrary{shapes,arrows,calc, matrix}
+\usetikzlibrary{positioning,decorations.pathreplacing,intersections, angles, quotes,calc, chains,fpu,arrows.meta,scopes, through,fadings, decorations.markings, arrows,shapes,positioning}
+
+% ---
+\usepackage[sorting=none]{biblatex}
+% Following code you find in
+% https://tex.stackexchange.com/questions/29802/biblatex-and-new-line-for-doi-url-and-eprint
+
+
+\setlength{\parskip}{0.5em}
+
+\newbibmacro*{bbx:parunit}{%
+  \ifbibliography
+    {\setunit{\bibpagerefpunct}\newblock
+     \usebibmacro{pageref}%
+     \clearlist{pageref}%
+     \setunit{\adddot\par\nobreak}}
+    {}}
+
+\renewbibmacro*{doi+eprint+url}{%
+  \usebibmacro{bbx:parunit}% Added
+  \iftoggle{bbx:doi}
+    {\printfield{doi}}
+    {}%
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}}
+    {}}
+
+\renewbibmacro*{eprint}{%
+  \usebibmacro{bbx:parunit}% Added
+  \iffieldundef{eprinttype}
+    {\printfield{eprint}}
+    {\printfield[eprint:\strfield{eprinttype}]{eprint}}}
+
+\renewbibmacro*{url+urldate}{%
+  \usebibmacro{bbx:parunit}% Added
+  \printfield{url}%
+  \iffieldundef{urlyear}
+    {}
+    {\setunit*{\addspace}%
+     \printtext[urldate]{\printurldate}}}
+
+
+% Fonts' config ---
+\setdefaultlanguage{english}
+\setotherlanguage{russian}
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+% Chapter's overview ---
+\newenvironment{overview}{%
+  \rightskip0.3in%
+  \leftskip0.5in%
+  \itshape%
+}{%
+  \newline
+  \hskip-0.2in
+  \rule{0.5\textwidth}{0.4pt}
+  \vskip0.5cm
+}
+
+% hyphenation config ---
+\pretolerance=5000
+\tolerance=9000
+\emergencystretch=0pt
+\righthyphenmin=4
+\lefthyphenmin=4
+
+\usepackage{pgfplots,pgfplotstable,float,indentfirst}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{rotating, pdflscape}
+
+\setcounter{secnumdepth}{1}
+\captionsetup{figurewithin=none}
+\captionsetup{tablewithin=none}
+
+
+
+% \blfootnote{A footnote without marker}
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+
+
+\newcommand{\warningSymbol}{\raisebox{\depth}{\danger}}
+
+
+\newenvironment{note}[1][NOTE]{%
+\medskip \begin{mdframed}[ leftmargin=-1em, rightmargin=1em,
+ topline=false, rightline=false, bottomline=false, linewidth=.12em, singleextra={ \draw (O|-P) node
+    [anchor=south east,font=\footnotesize,rotate=90] {#1}; },
+ firstextra={ \draw (O|-P) node
+    [anchor=south east,font=\footnotesize,rotate=90] {#1}; },
+] }{%
+   \end{mdframed}%
+   \medskip
+}

@@ -1,0 +1,122 @@
+\begin{tikzpicture}[font=\small,scale=1.3,
+				Subsystem/.style={circle, draw=gray, align=center, fill=white},
+				OnLine/.style={sloped, fill=white},
+				InTheMiddle/.style={OnLine, midway},
+			 Contains/.style={
+	     grow=right, child anchor=west,
+					every child/.append style={
+						every child node/.style={anchor=west}
+					},
+					level distance=2.5cm, sibling distance=4.0cm,
+				edge from parent path={
+					(\tikzparentnode.0) to[out=0, in=180] (\tikzchildnode\tikzchildanchor)
+				}
+		},
+		Role/.style={ draw, minimum width=3cm,grow=right },
+		Has/.style={
+			level distance=2.05cm,  sibling distance=0.45cm,
+			every child/.style={
+				edge from parent path={
+				(\tikzparentnode.east) --+ (5pt,0) |- (\tikzchildnode\tikzchildanchor)}
+			}
+		},
+	]
+	%
+
+		\node (U) at (-3,1) {Actors} [Contains]
+			  child  { node[Role, yshift=2cm] {Data Consumers} [Has, grow'=0]
+						child  { node (ODR) {Public Data Requests} }
+						child  { node (PDR) {Private Data Requests} }
+						child  { node (DC-T) {ZNA Tokens} }
+				}
+				child  { node[Role, align=center] (N) {Computational\\ Nodes} [Has, grow'=20]
+						child  { node (N-M) {Memory} }
+						child  { node (N-T) {ZNA Tokens} }
+						child  { node (N-C) {CPU Time} }
+			}
+				child  { node[Role, xshift=-3cm] {Persons} [Has, grow'=-20]
+						child  { node (P-T) {ZNA Tokens} }
+						child  { node (P-P) {Personal Data} }
+				}
+			;
+
+		\node (TP) at (-3,9.7) {Third Parties} [Contains, sibling distance=0.6cm, level distance=1.6cm ]
+		   child  { node[Role] (DP) {Data Providers} }
+       child  { node[Role] (ES) {External Service} }
+			;
+
+    \node[circle, draw, align=center] (BC) at (9.5,10) {Blockchain};
+
+
+
+		\begin{scope}[shift={(12,5)}]
+			\draw circle [radius=3.15cm];
+			\draw[dotted, thick] circle [radius=2.35cm];
+			\draw[opacity=0.2]	(-100:2.35cm) to[out=-100, in=0] (N.350);
+
+			\foreach \t in {0,1,...,12}{
+        \fill (30*\t:2.1) coordinate (n\t) circle (3pt);
+      }
+			\foreach \i/\j in {0/1,1/2,3/4,5/6,7/8,4/8,12/2,12/5,11/3,11/5,11/8,10/2,10/7,10/4,9/3,9/7,9/6} \draw[dashdotdotted] (n\i) -- (n\j);
+			\fill [fill=white, opacity=0.3] circle (1cm);
+			\node[align=center] {Distributed\\ Network};
+
+		  \node[Subsystem] (Storage)   at (180:3.2) {Data \\ Storage};
+			\node[Subsystem] (Reward)    at (205:3.4) {Tokens};
+	    \node[Subsystem] (Calc)      at (230:3.4) {Data \\ Processing};
+
+		\end{scope}
+
+
+
+	\begin{scope}[shift={(1.5,7)}]
+
+			\draw[dashed] (-0.3,-1.2) rectangle (4.7,1);
+
+			\draw (0.5,0) circle (2pt)
+					node [above, font=\footnotesize, align=center] {Genetic\\Testing};
+
+			\draw (0.55,0) coordinate (step1) ++ (2,0) coordinate (step2)
+                                        ++ (2,0) coordinate (step3);
+
+			\draw[every node/.append style={InTheMiddle, draw}]  (step1)
+        -- (step2) node (UploadData) {data}
+        -- (step3) node [above] (UploadData2) {public data}
+				           node [below] (tokens) {tokens}
+				           node [below, yshift=-1.2em] (key) {key};
+	\end{scope}
+
+
+\begin{scope}[-latex, every node/.append style={InTheMiddle}]
+  \draw (N-M)        -- (Storage) node (con-mem)    {contribute};
+  \draw (N-C)        -- (Calc)    node (con-cpu)    {contribute};
+  \draw (Reward)     -- (N-T)     node (con-reward) {reward for };
+  \draw (con-reward) -- (con-cpu);
+  \draw (con-reward) -- (con-mem);
+\end{scope}
+
+\begin{scope}[thick,-stealth]
+		\draw (tokens) -| + (1.6cm,-1.7cm)  node [fill=white]{Pay} -- (Reward);
+		\draw (UploadData2) -- + (2cm, 0) node [fill=white]{store} -- (Storage);
+		\draw (key) |- (P-P);
+		\draw (DP) -| (UploadData.north) node [pos=0.75, fill=white]{provide};
+		\draw (P-T) -| (step2) node[pos=0.65, fill=white] {Pay};
+
+		\draw (6.2,8) -- (BC) node[InTheMiddle] {register};
+		\draw (ES) -- (BC) node[InTheMiddle] {register};
+		\draw (PDR) -- +(10.9cm, 0) node[InTheMiddle] {register} |- (BC);
+		\draw[stealth-stealth] (N.340)--++(0,-0.3) -- +(13.4cm, 0) node[pos=0.80, OnLine] {get data sharing requests} |- (BC.350);
+		\draw (N.355) -- +(13.3cm, 0) node[pos=0.20,OnLine] {register} |- (BC.340);
+\end{scope}
+
+\begin{scope}[dashed, {Stealth[length=6pt,width=4pt,sep=4.5pt]}-{Stealth[length=6pt,width=4pt,sep=0.5pt]}]
+		\draw (n4) -- (BC);
+		\draw (n6) -- (BC);
+		\draw (n5) -- (BC);
+		\draw (n3) -- (BC);
+		\draw (n2) -- (BC);
+		\draw (n4) -- (BC) node[pos=0.75, rotate=20,fill=white] {cooperate};
+		\draw (ODR) -- (Calc);
+\end{scope}
+
+\end{tikzpicture}

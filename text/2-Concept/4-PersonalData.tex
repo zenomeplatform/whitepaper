@@ -1,0 +1,61 @@
+﻿\section{Personal profiles}
+Filling personal questionnaires significantly increases the applicability of genomic data. The users fill in the questionnaire using the graphical interface.
+
+\begin{note}
+If some questionnaire becomes popular, the application prompts the user to fill it. Each analyst may create his or her own questionnaire and place it into the platform.
+\end{note}
+
+\subsection{Specification of the questionnaire}
+A number of questionnaires can be huge; therefore, it is necessary to introduce the concept of the questionnaire specification.
+
+\textbf{Specification of the questionnaire} --- is a complete description of all fields of the questionnaire and the allowed values of these fields.
+
+\begin{note}
+Formally, the specification of the questionnaire contains a reference to the author, a description and an ordered set of records, each of which corresponds to one field of the questionnaire.
+\end{note}
+
+Fields may have several types:
+\begin{description}
+  \item[Numeric field] The value of the field is a integer.
+
+  \item[Multiple choice] The value of the field is a number of an answer.
+\end{description}
+
+  \begin{note}
+    The answers to these types of questions will be put in open access (without any reference to the user), since they do not threaten the privacy.
+  \end{note}
+
+\begin{description}
+  \item[String field] The value of the field is a string. It is a private field, because it potentially allows compromising the user identity based on a specific answer.
+
+  \item[Private block] Allows making any set of fields private, regardless of their real type.
+
+\end{description}
+
+\subsection{Queries to the system.}
+Statistical data regarding certain genomic statuses will be open to public if the owner has not decided to encrypt them. In addition, the information regarding the available answers to the questionnaires is open too. Therefore, everyone knows, for example, the number of network users 25 years of age or having a mutation rs6025 (coagulation factor V).
+
+The architecture of the system makes it impossible to extract the full database:
+\begin{itemize}
+\item During creation of associative inquiries, the customer does not get access to raw data.
+\item Basic fee includes only a limited number of requests per day. The fee for additional queries included in the quota grows exponentially during a day.
+\item If the result of the associative query contains less than 100 users, the result will not be provided to the customer.
+\end{itemize}
+
+If some user completely encrypts his or her data, then he or she decides on his or her own to whom the personal data, including the fragments of which his or her genome consist of, are allowed to be transferred. No analyst will be able to know what types of data are encrypted.
+
+\subsection{Secure transfer of personal data}
+The process of transferring personal data between participants in the system should possess the following properties:
+\begin{enumerate}
+\item Full data to be transmitted should be available only to the buyer and to the seller.
+\item Transmission of tokens should only take place if the data have been transmitted successfully.
+\item An attempt to sell incorrect data should be identified and blocked.
+\item An attempt to deliberately falsely accuse the seller in selling of incorrect data should be revealed.
+\item Data transmission should not be trusted to some third party.
+
+\begin{note}
+  The blockchain technology will be used for secure data transfer. However, it should be considered that storing (and transferring) large amounts of information to the blockchain is resource consuming. Therefore:
+\end{note}
+
+\item It is allowed to transfer only a small amount of data through the blockchain. The remaining data can be transmitted through a simple encrypted communication channel.
+\end{enumerate}

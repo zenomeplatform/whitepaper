@@ -1,0 +1,178 @@
+\section{User’s personal data}
+
+
+%\subsection{User’s personal details}
+% User’s personal data are divided into so-called records:
+%
+%     PersonalRecord =
+%       scheme    : SchemeID     // String identifier of the data scheme.
+%       data      : JSON | BLOB  // The data in binary form or in JSON format.
+%       hash      : SHA-Hash     // Hash sum of the data for data integrity verification.
+
+Record --- is a minimal unit of the data exchange. It is not possible to transfer (for example, to sell for a reward) a part of the information from a record. It is possible to create a new record that will contain only a part of the data, but in such a case this new record will be significantly less interesting for potential buyers due to its low rating.
+
+The data scheme determines which information and in which format should record contain. Scheme usage is a flexible tool for the unification of data exchange format between network participants. Data scheme identifier could be any string that enables individual to find its description in the network, for example, URL or smart contract address with a description. It should be understood that primary purpose of the data scheme is to unify the conception of what is included in the data between the buyers and the sellers of these data.
+
+\subsection{Questionnaire specification}
+Filling personal questionnaires increases the value of genomic data substantially. A huge number of questionnaires may exist, so it is necessary to introduce the concept of questionnaire specification.
+
+\textbf{Questionnaire specification} --- represents a complete description of all fields of the questionnaire and the allowed values of these fields.
+%
+% |             Questionnaire                                             ||
+% | --------- | ----------------- | ------------------------------------- |
+% | `QId`     | `key`             | Questionnaire identifier              |
+% | `author`  | `address`         | The address of the author’s carte in the blockchain                                                          |
+% | `text`    | `string`          | Textual description                   |
+% | `items`   | `List<N,Question>`| List of questions                     |
+
+Formally, a questionnaire specification contains the author reference, a description and ordered list of records each of which corresponds to one field of the questionnaire.
+%
+% ----
+%
+\textbf{Numeric field}
+%
+% |             Question.Number                                          ||
+% | --------- | ----------------- | ------------------------------------- |
+% | `text`    | `string`          | Question text                         |
+% | `range`   | `Pair<int, int>`  | Allowed value range                   |
+%
+ A user’s answer should be within the allowed value range $[a,b]$. The answer is coded by the unsigned integer, where the count starts from left border of the range:
+%
+% `type Answer.Number = uint;`
+
+\begin{note}
+An answer to such type of question is publicly available since it does not threaten the privacy.
+\end{note}
+
+% ----
+%
+\textbf{Multiple choice}
+%
+% |             Question.Enum                                            ||
+% | --------- | ----------------- | ------------------------------------- |
+% | `text`    | `string`          | Question text                         |
+% | `items`   | `List<N, string>` | Possible answers                      |
+%
+% Here `N` --- is the number of possible answers.
+The user’s answer is coded as unsigned integer representing serial number of the answer in a list.
+%
+% `type Answer.Enum = uint;`
+%
+If the value equals zero, then the user has preferred not no answer to this question.
+
+\begin{note}
+Attention: an answer to such type of question is publicly available since it does not threaten the privacy.
+\end{note}
+
+
+% ----
+
+
+\textbf{String answer}
+%
+% |             Question.String                                          ||
+% | --------- | ----------------- | ------------------------------------- |
+% | `text`    | `string`          | Question text                         |
+%
+ The user’s answer is stored as a string.
+%
+% `type Answer.String = string;`
+%
+\begin{note}
+An answer to such type of question is a private information.
+\end{note}
+
+%
+% ----
+%
+% **Private block** allows to make any set of fields private regardless of their real type.
+%
+% |             Question.Private                                          ||
+% | --------- | -----------------  | ------------------------------------- |
+% | `items`   | `List<N,Question>` | List of questions                         |
+%
+% `type Answer.Private = List<N,Answer>;`
+%
+% ----
+%
+%
+% \subsection{Filled questionnaires}
+\textbf{Filled questionnaire} --- is a data structure containing the user’s answers to the questions of the questionnaire.
+%
+% There are two types of the filled questionnaires. First type is Answers.Full
+%
+% |             Answers.Full                                             ||
+% | --------- | ----------------- | ------------------------------------- |
+% | `person`  | `address`         | Blockchain address of ‘Person’ role            |
+% | `scheme`  | `address`         | Blockchain address of the questionnaire                              |
+% | `list`    | `Array<Answer>`   | An array of all answers               |
+%
+% The array itself contains the answers to public fields in the same order as they are represented in the `items` array of the questionnaire. The length of the `Answers` array corresponds to public fields in the questionnaire.
+%
+
+\begin{note} \it
+ This structure is fully encrypted if necessary. It is stored at least on the user’s computer. A user can upload the encrypted backup to the blockchain if he wants to.
+\end{note}
+
+%
+% The second type is --- Answers.Short that does not contain private information:
+%
+% |             Answers.Short                                            ||
+% | --------- | ----------------- | ------------------------------------- |
+% | `scheme`  | `address`         | Blockchain address of the questionnaire             |
+% | `list`    | `Array<Answer>`   | An array of public answers            |
+%
+% The length of the `Answers` array is equal to the number of questions of types Number and Enum in `items`.
+%
+% \subsection{Access request to personal information}
+%
+%
+% |             AccessRequest                                            ||
+% | ----------------- | ------------------ | ------------------------------- |
+% | `genomeFragments` |`Array<FragmentId>` | Access request to genetic information  |
+% | `Questionnaires`  |`Array<QId>`        | Access request to questionnaire data |
+%
+
+
+%\subsection{Personal data request}
+Personal data request from users have some distinctive features:
+\begin{itemize}
+\item Not all users satisfy the criteria of the specific research. To check whether the data are appropriate, an access to personal information is required.
+\item Personal information should not be transferred outside the user’s computer neither explicitly (directly) or implicitly ("warrant canary").
+\item In a case when user satisfies the criteria, he or she will receive an offer to share his or her personal data for a reward.
+\end{itemize}
+
+\begin{note}[CONCL. 1]
+  Since the information transfer is not permitted, the checking should be performed in isolated environment.
+  The code executable in this environment have a full access to private information but cannot interact with other parts of the system.
+\end{note}
+
+\begin{note}[CONCL. 2]
+  The result of this isolate function’s execution is not permitted to be sent as an answer to potential customer since it also threatens the privacy.
+\end{note}
+
+\begin{note}[CONCL. 3]
+  It is reasonable to choose the restricted set of personal data, which are necessary to make a conclusion on a separate checking step. The user will see on what data the decision is based on the exchange offer screen.
+\end{note}
+
+\begin{note}[CONCL. 4]
+  The data to be transferred explicitly are listed on the exchange offer screen. Only the data that have been requested to make a checking could be transferred implicitly, and the list of such data will also be available to the user.
+\end{note}
+
+%-----
+
+Personal data request:
+\begin{itemize}
+
+\item \textbf{In the first step} an access is requested to personal user data.% using `AccessRequest` record.
+
+Only the data identifiers of which were listed in this request will be available to checking function.
+
+\item In the second step, the code of the checking function is executed within an isolated environment, and its execution result represents the formulated offer regarding data exchange or offer cancellation. In the latter case no data are transferred anywhere.
+
+In the former case a user is notified when the exchange offer is formulated, then he or she examines the offer, the list of data used during checking and the list of data that will be transferred if the user agrees to the offer.
+
+If the user rejects the offer, no data are transferred.
+
+If the user accepts the offer, only the data explicitly shown to the user are transferred.
+\end{itemize}

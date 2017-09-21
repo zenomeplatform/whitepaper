@@ -1,0 +1,57 @@
+\section{Background}
+%-------------------------------------------------------------------------------
+\begin{overview}
+In this section, definitions of the terms “genome” and “genomics” are given. The history of the first genomic sequencing efforts and the emergence of high-throughput sequencing technology (NGS) are considered. The main manufacturers of reagents and equipment used to obtain genomic data are described. Issues regarding accumulating genomic data and reducing the cost of analyses are considered. A review of current genomic databases is provided.
+\end{overview}
+%-------------------------------------------------------------------------------
+
+
+%-------------------------------------------------------------------------------
+\subsection{Genome}
+\textbf{The genome} is the complete set of genetic instructions found in a cell \cite{genome.gov:glossary:genome}.
+
+The genome contains biological information necessary for the development and functioning of an organism. The human genome consists of linear double-helical DNA molecules organized into 22 pairs of chromosomes plus two sex chromosomes – X and Y. All information contained in a genome is encoded using quaternary code through a sequence of 4 nucleotides designated A, T, C, and G. The term "to read a genome" means “to determine a nucleotide sequence by a sequencing process” \cite{clinchem:61:9:1207}.
+
+The individual sequence of a genome defines a variety of organismal features, including appearance, susceptibility to certain diseases, athletic ability, metabolism, nutritional preferences, compatibility with sexual partners (the ability to conceive children), and many more.
+
+\subsection{The International Human Genome Project}
+The International Human Genome Project\footnote{\url{https://en.wikipedia.org/wiki/Human_Genome_Project}}  was launched under the supervision of the NIH (National Institutes of Health) in 1990 to determine the complete sequence of the haploid human genome. The initial project leader was one of the discoverers of the structure of DNA, Nobel prize winner James Watson
+
+A draft sequence of the human genome was completed in the middle of 2000 and published in the beginning of 2001 in the journal Nature. The cost of this international project completed with public funding was approximately \$3 billion. In 1998, a private company, Celera Genomics, joined the race to sequence the human genome. The leader of the private project, which was developed in parallel with governmental institutions, was famous scientist and entrepreneur Craig Venter, who managed to raise \$300 million in private investments for Celera’s project. By using the new shotgun sequencing approach and more productive computational methods, the sequence of Craig Venter’s genome was published almost simultaneously with the data produced by the international consortium in 2001\cite{Venter1304} in the journal Science. The "full" human genome was published in 2007, and some human genomic regions that are difficult to sequence remain unknown.
+
+\subsection{Development of genome analysis}
+Extensive investments, a large number of outstanding participants from the scientific community, and competition among private and public organizations have provided considerable impetus for developing genome analysis technologies. As a result, modern sequencing technologies such as NGS (next-generation sequencing)\footnote{\url{https://www.ebi.ac.uk/training/online/course/ebi-next-generation-sequencing-practical-course/what-you-will-learn/what-next-generation-dna-}} have emerged together with a new branch of science called bioinformatics, a young field of research at the intersection of mathematics, IT, and biology, that develops techniques and algorithms for the analysis of large biological datasets in productive and computationally effective ways.
+
+
+
+\begin{table}[h!]
+  \caption{Equipment developers and reagent suppliers for genomic sequencing. Market capitalization taken from \href{https://finance.yahoo.com/}{Yahoo Finance}.}
+  \label{table:developers}
+  \input{tables/table-developers.tex}
+\end{table}
+
+The emergence of second and third generation sequencing technologies (NGS) has led to a strong reduction of genome analysis cost. While even in 2009 the cost of a full analysis of a genome was about 100,000 USD, currently the average price for the same analysis has dropped down to approximately less than 1,000 USD (see Fig.~\ref{fig:Moore} and Table~\ref{table:genomeanalysistypes}).
+
+\blfootnote{\url{https://en.wikipedia.org/wiki/Moore's_law}}
+\begin{figure}[h!] \centering
+  \input{fig/Moore.tikz}
+  \caption{Moore's Law and cost reduction of genomic analysis. A significant drop in prices in 2008 was due to the advent of next generation sequencing technologies (NGS)\cite{genome.gov:sequencingcostsdata}.}
+  \label{fig:Moore}
+\end{figure}
+
+
+\subsection{Impact on other sciences}
+The development of genomics (the field of science studying various genomes) has led to the transformation of many scientific fields, from biology and anthropology to medicine and even social sciences. A number of top commercial companies such as Google, Apple, IBM, Amazon, and Alibaba have set the objective of using genomics to adjust their products and services according to the genomic profiles of their customers. Such adjustments will allow these companies to fine tune user relations and to predict their customers’ needs and potential activities
+\footnote{\url{https://www.smeal.psu.edu/fcfe/documents/innovations-in-medical-genomics-pdf}}.
+
+\subsection{Genetic databases}
+The reduction in the cost of sequencing has led to an exponential increase in available genomic data. For example, a complete human genome in so-called "raw data" format can represent 50 GB to 2 TB of data (depending on the sequencing depth required). To store such a large amount of genomic data, special genomic databases have been created containing various types of data, such as raw data obtained from genomic sequencers ("reads" or "readings"), sequences of genes and proteins, sets of coding regions of a genome called exomes, and even the sequences of whole genomes (scaffolds); some of these databases contain clinically relevant information as well as the relationships between genetic traits and diseases. Most of these databases are centrally managed and financed by governments or large corporations. Scientists worldwide are involved in the addition of new data to these databases, enabling rapid updating and synchronization. In Table~\ref{table:databases}, some such well-known databases are described.
+
+
+\begin{table}[h!] \centering
+  \caption{Genomic databases}
+  \label{table:databases}
+  \input{tables/table-databases.tex}
+\end{table}
+
+The majority of such databases are hosted in developed countries and are centrally managed and controlled by governments. Access to some of these databases is restricted, even for the scientific community, or is limited by commercial subscriptions. Although the founders of genomic databases claim they securely and anonymously store genomic data, in reality, the data stored are only pseudonymous, as in some cases, individuals have been identified based on their genomic information\cite{Gymrek321}.

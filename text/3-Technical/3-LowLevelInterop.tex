@@ -1,0 +1,67 @@
+\section{Low-Level Interoperation Layer}
+
+\subsection{Distributed P2P network}
+A basis of the platform is P2P network based on Kademlia protocol. The network involves the computers of users who have installed Zenome software.
+
+\textbf{Node} --- is a node of distributed P2P network that represents a user's computer with Zenome software installed on it.
+
+\begin{note}
+ Consequently, an overlay network is constructed between the devices participating in the network. It represents a virtual network in which to each participant a `NodeId` is assigned, that has no relationship with real IP-address of the device. Each node stores the list of “proximal” nodes, where the distance between nodes is calculated based on nodes’ `NodeId` and is not related to common distance.
+\end{note}
+
+The nodes store the data by using distributed hash tables.
+
+
+\subsection{Distributed network implementation characteristics}
+
+A modified protocol specification is used. Main differences are the following:
+\begin{itemize}
+\item Nodes can exchange arbitrary messages between each other. A node is able to transfer a message to other node knowing its `NodeId` only.
+\item Several hash tables may exist within the network. Hash table is identified by string key.
+\item Different policies of value storing and deleting can be set for different tables.
+\item The data transferred from one node to another are encrypted (see below).
+\end{itemize}
+
+\subsection{Message exchange in a distributed environment}
+Thus, participants of peer-to-peer network are able to exchange the following messages:
+
+\begin{tabular}{r|p{13cm}}
+
+  \texttt{PING} & \small Verify that a node is still alive\\
+
+  \texttt{STORE(T,K,V)} & \small Store the value `V` by the key `K` in the table `T` in a node receiving the message\\
+
+  \texttt{FIND\_NODE(N)} & \small A node receiving the message will sent the data regarding the nodes which are closest to the node `N` among the nodes it knows.\\
+
+  \texttt{FIND\_VALUE(T,K)} & \small If the pair `(K,V)` is stored in a receiving node, send the value `V`, else send the data regarding known nodes which are “closer” to file.\\
+
+  \texttt{SEND(M,N,D?)} & \small Sends the message `M` that can also contain the data `D` to the node `N`. `FIND\_NODE` is used to locate the node.
+
+\end{tabular}
+
+\begin{note}
+Note: this interaction level is a transport level of the platform.
+\end{note}
+
+
+
+%\subsection{Low-Level Interoperation Subsystem}
+%+ Internal state specification
+%
+%|>| **Internal State**    | Low-Level Interoperation |
+%| ---------- | ----------- | ------------ |
+%| **Data**   | **Type**    | **Description**
+%|   Data     | `Map<Key,DHT>`| A set of distributed tables |
+%
+%+ Lists of all interfaces, actions and events
+%
+%|>| **Interfaces**       | Low-Level Interoperation |
+%| ---------------- | ---------- | ------------------------------------------- |
+%| **Name**         | **Caller** |  **Description**
+%| `Send(N,M,D)`    | `any` at `Node`  | Send message
+%| `OnEvent(E,M,H)` | `Node` | When the event `E` fires, which message is exactly `M`, execute the handler `H` with transferring `D` as argument.
+
+%|>| **Events** | Low-Level Interoperation |
+%| ------------ | ---------- | ------------ |
+%| **Name**     | **Data**   |  **Description**
+%| `Message`    | `(N,D)`    | New message has been received

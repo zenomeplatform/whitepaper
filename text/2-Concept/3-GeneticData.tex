@@ -1,0 +1,87 @@
+\section{Genomic data}
+\subsection{Types of omics (genomic) data}
+
+Within the framework of the concept, 3 types of omics (genomic) data may be distinguished depending on the payment and the information value:
+
+\begin{itemize}
+
+  \item Open data, which is not valuable for its owners, but is important for scientists.
+  \newline\textbf{Example:} Genome of Helicobacter pylori bacteria strain.
+
+  \item Open data, which is valuable both for its owner and for the consortium.
+  \newline\textbf{Example:} Genomes of the majority of network participants.
+
+  \item Restricted data that are simply stored within the network.
+  \newline\textit{For restricted projects of various commercial and public institutions.}
+
+\end{itemize}
+
+
+
+\subsection{Preprocessing of genetic data}
+The handling of NGS genomic data (and most other omics datasets) usually consists of two independent steps:
+\begin{enumerate}
+\item  \textbf{Preliminary processing of "raw" data.}
+\item  \textbf{Dedicated analysis of genetic sequences} for the developing of personal recommendations or within the framework of a research.
+\end{enumerate}
+
+\begin{note}
+  \textbf{A reference genome} --- is a digital DNA dataset assembled as a representative example of a species' set of genes.
+\end{note}
+
+Preprocessing of NGS genomic data includes the following steps:
+\begin{enumerate}
+  \item Alignment of NGS reads to the reference genome.
+  \item Searching for mutations and other differences from the reference genome, and saving their list in gVCF format.
+\end{enumerate}
+
+\begin{note} \it
+  Note: The protocol is the same for the data of non-human organisms. Of course, in this case an appropriate reference genome is required.
+\end{note}
+
+If personal dataset represents the result of microarray genotyping technology (23andMe file type), it can also be uploaded to the platform as gVCF since the data formats of these file types are similar.
+
+\subsection{The Fake Data Problem}
+
+If the genetic data of other (non-human) organism are uploaded instead of the correct genome (accidentally or deliberately), this will be detected during the preprocessing of raw data and the user will be notified.
+If the user intentionally uploads distorted (fake) genetic data into the system, this can be detected using many well-known verification methods before saving them into storage.
+
+\begin{note}
+  The economic inducement to refrain from uploading fake data is that the payment for data storage should be made upfront for the whole year.
+\end{note}
+
+\subsection{The problem of user identification based on genomic data}
+
+Open access to genetic information raises the problem of identifying users by their genomic and other data. If a user decides not to fully disclose his or her genetic information, appropriate measures should be taken at each step of processing and storing the data.
+To solve the problem of user identification, the interaction should be designed in such a way that at each stage no node could determine the ownership of the genetic material by specific individual, or even the city in which this individual lives in.
+
+\begin{note}
+  The differences between residents of one city constitute approximately $0.01\%$ of the sequence.
+\end{note}
+
+At each stage, the goal above is achieved in different ways:
+\begin{enumerate}
+  \item In the preprocessing phase --- by dividing the source file into parts so that the average coverage is lower than the confidence threshold (6 copies).
+  \item In the storage stage --- storage account fragmented by length.
+\end{enumerate}
+
+\subsection{Storage of genomic data}
+Genomic data are located in a distributed network based on DHT Kademlia protocol. The participants who provide resources for the operation of this network (see details regarding \verb|Node| role) receive payments for it in ZNA tokens.
+In order to receive payment, they need to prove to the network that they are really storing these data. The procedure of this checking is based on blockchain usage.
+Encryption is used when necessary.
+
+\begin{note} \it
+  Note: Integration with Storj and FileCoin nodes will also be implemented.
+\end{note}
+
+As already mentioned, the data could be raw and processed.
+
+\begin{table}[H] \centering
+  \input{tables/table-storagegenetic.tex}
+\end{table}
+
+Genomic data are stored divided into fragments in such a way that the length of a fragment does not allow to unambiguously identify that this fragment belongs to a specific individual.
+
+\begin{note} \it
+  Information regarding which genome fragments constitute the user genome is also private and can be obtained only with the user's permission.
+\end{note}
